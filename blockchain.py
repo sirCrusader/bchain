@@ -1,8 +1,11 @@
 import hashlib
 import json
 
+from textwrap import dedent
 from time import time
 from uuid import uuid4
+
+from flask import Flask
 
 class Blockchain(object):
     def __init__(self):
@@ -94,3 +97,14 @@ class Blockchain(object):
     @property
     def last_block(self):
         return self.chain[-1]
+
+
+# Instantiate our Node
+app = Flask(__name__)
+
+# Generate a globally unique address for this node
+node_identifier = str(uuid4()).replace('-','')
+
+#Instantiate the Blockchain
+blockchain = Blockchain()
+
