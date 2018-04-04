@@ -10,6 +10,7 @@ from urllib.parse import urlparse
 import requests
 from flask import Flask, jsonify, request
 
+import sys
 
 class Blockchain(object):
     def __init__(self):
@@ -257,7 +258,7 @@ def register_nodes():
     return jsonify(response), 201
 
 @app.route('/nodes/resolve', methods=['GET'])
-def consunsus():
+def consensus():
     replaced = blockchain.resolve_conflicts()
 
     if replaced:
@@ -273,5 +274,6 @@ def consunsus():
 
     return jsonify(response), 200
 
+port = sys.argv[-1]
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=int(port))
